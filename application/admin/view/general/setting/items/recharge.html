@@ -1,0 +1,78 @@
+<div class="tab-pane fade" id="rechange">
+    <div class="widget-body no-padding">
+        <form id="pay-form" class="form-horizontal edit-form" role="form" data-toggle="validator" method="POST" action="{:url('general.setting/edit?name=recharge')}">
+            {:token()}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th width="15%">变量标题</th>
+                    <th width="68%">变量值</th>
+                    <th width="15%">变量名</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>充值提示文字</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[tip]" value="{$recharge.tip}" class="form-control" data-rule="" data-tip="">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>recharge.tip</td>
+                </tr>
+                <tr>
+                    <td>充值金额列表</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[money_list]" value="{$recharge.money_list}" class="form-control" data-rule="" data-tip="">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>recharge.money_list</td>
+                </tr>
+                <tr>
+                    <td>默认充值金额</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[default_money]" value="{$recharge.default_money}" class="form-control" data-tip="">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+
+                    </td>
+                    <td>recharge.default_money</td>
+                </tr>
+                <tr>
+                    <td>最低充值金额</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[min_money]" value="{$recharge.min_money}" class="form-control" data-tip="">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+
+                    </td>
+                    <td>recharge.min_money</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                        <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                    </td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</div>

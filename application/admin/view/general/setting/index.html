@@ -1,0 +1,21 @@
+
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        {:build_heading(null, false)}
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#site" data-toggle="tab">{:__('Site base')}</a></li>
+            <li><a href="#pay" data-toggle="tab">{:__('Pay')}</a></li>
+            <li><a href="#email" data-toggle="tab">{:__('Mail')}</a></li>
+            <li><a href="#rechange" data-toggle="tab">{:__('Rechange')}</a></li>
+        </ul>
+    </div>
+
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            {include file="general/setting/items/site"/}
+            {include file="general/setting/items/pay"/}
+            {include file="general/setting/items/email"/}
+            {include file="general/setting/items/recharge"/}
+        </div>
+    </div>
+</div>

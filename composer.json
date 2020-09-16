@@ -1,0 +1,29 @@
+{
+    "name": "karsonzhang/fastadmin",
+    "description": "the fastest admin framework",
+    "type": "project",
+    "keywords": [
+        "fastadmin",
+        "thinkphp"
+    ],
+    "homepage": "https://www.fastadmin.net/",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Karson",
+            "email": "karsonzhang@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "topthink/framework": "~5.0.24",
+        "topthink/think-captcha": "^1.0",
+        "topthink/think-queue": "^2.0",
+        "karsonzhang/fastadmin-addons": "~1.1.9",
+        "guzzlehttp/guzzle": "^6.4"
+
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}

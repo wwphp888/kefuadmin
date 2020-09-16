@@ -1,0 +1,136 @@
+<div class="tab-pane fade active in" id="site">
+    <div class="widget-body no-padding">
+        <form id="pay-form" class="form-horizontal edit-form" role="form" data-toggle="validator" method="POST" action="{:url('general.setting/edit?name=site')}">
+            {:token()}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th width="15%">变量标题</th>
+                    <th width="68%">变量值</th>
+                    <th width="15%">变量名</th>
+                    <th width="2%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{:__('Site name')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[name]" value="{$site.name}" class="form-control">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+
+                    </td>
+                    <td>site.name</td>
+                </tr>
+                <tr>
+                    <td>{:__('Beian')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[beian]" value="{$site.beian}" class="form-control">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+
+                    </td>
+                    <td>site.beian</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Cdn url')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[cdnurl]" value="{$site.cdnurl}" class="form-control" data-rule="" data-tip="如果静态资源使用第三方云储存请配置该值">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>site.cdnurl</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Version')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[version]" value="{$site.version}" class="form-control" data-tip="">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>site.version</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Timezone')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[timezone]" value="{$site.timezone}" class="form-control" data-tip="">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>site.timezone</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Forbidden ip')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <textarea name="value[forbiddenip]" class="form-control" data-rule="" rows="5" data-tip="一行一条记录">{$site.forbiddenip}</textarea>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>site.forbiddenip</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Languages')}</td>
+                    <td>
+                        <dl class="fieldlist" data-name="value[languages]">
+                            <dd>
+                                <ins>{:__('Array key')}</ins>
+                                <ins>{:__('Array value')}</ins>
+                            </dd>
+                            <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i class="fa fa-plus"></i> {:__('Append')}</a></dd>
+                            <textarea name="value[languages]" class="form-control hide" cols="30" rows="5">{:json_encode($site['languages'])}</textarea>
+                        </dl>
+                    </td>
+                    <td>site.forbiddenip</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Fixed page')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[fixedpage]" value="{$site.fixedpage}" class="form-control" data-tip="">
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>site.fixedpage</td>
+                </tr>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                        <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                    </td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</div>

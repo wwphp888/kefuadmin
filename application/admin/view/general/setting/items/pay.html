@@ -1,0 +1,136 @@
+<div class="tab-pane fade" id="pay">
+    <div class="widget-body no-padding">
+        <form id="pay-form" class="form-horizontal edit-form" role="form" data-toggle="validator" method="POST" action="{:url('general.setting/edit?name=pay')}">
+            {:token()}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th width="15%">{:__('Title')}</th>
+                    <th width="68%">{:__('Value')}</th>
+                    <th width="15%">{:__('Name')}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align: center;font-weight: bold">微信支付</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>{:__('App id')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[wxpay][app_id]" value="{$pay.wxpay.app_id}" class="form-control"/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>pay.wxpay.app_id</td>
+                </tr>
+                <tr>
+                    <td>{:__('Mch id')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[wxpay][mch_id]" value="{$pay.wxpay.mch_id}" class="form-control"/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>pay.wxpay.mch_id</td>
+                </tr>
+                <tr>
+                    <td>{:__('Key')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[wxpay][key]" value="{$pay.wxpay.key}" class="form-control"/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>pay.wxpay.key</td>
+                </tr>
+                <tr>
+                    <td>{:__('Notify url')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[wxpay][notify_url]" value="{$pay.wxpay.notify_url}" class="form-control"/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>pay.wxpay.notify_url</td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: center;font-weight: bold">支付宝</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>APPID</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[alipay][app_id]" value="" class="form-control" data-rule="require" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>pay.alipay.app_id</td>
+                </tr>
+                <tr>
+                    <td>商户ID</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[alipay][mch_id]" value="" class="form-control" data-rule="require" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>pay.alipay.mch_id</td>
+                </tr>
+                <tr>
+                    <td>商户密钥</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[alipay][key]" value="" class="form-control" data-rule="require" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>pay.alipay.key</td>
+                </tr>
+                <tr>
+                    <td>回调地址</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[alipay][notify_url]" value="" class="form-control" data-rule="require" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>pay.alipay.notify_url</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
+                        <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</div>

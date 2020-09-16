@@ -1,0 +1,121 @@
+<div class="tab-pane fade" id="email">
+    <div class="widget-body no-padding">
+        <form id="pay-form" class="form-horizontal edit-form" role="form" data-toggle="validator" method="POST" action="{:url('general.setting/edit?name=email')}">
+            {:token()}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th width="15%">{:__('Title')}</th>
+                    <th width="68%">{:__('Value')}</th>
+                    <th width="15%">{:__('Name')}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <td>{:__('Mail type')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[email][type]" value="{$email.type}" class="form-control"/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>email.type</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Mail smtp host')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[email][host]" value="{$email.host}" class="form-control" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>email.host</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Mail smtp port')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[email][port]" value="{$email.port}" class="form-control" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>email.port</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Mail smtp user')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[email][user]" value="{$email.user}" class="form-control" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>email.user</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Mail smtp password')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[email][password]" value="{$email.password}" class="form-control" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>email.password</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Mail vertify type')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[email][vertify_type]" value="{$email.vertify_type}" class="form-control" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>email.vertify_type</td>
+                </tr>
+
+                <tr>
+                    <td>{:__('Mail from')}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-8 col-xs-12">
+                                <input type="text" name="value[email][from]" value="{$email.from}" class="form-control" data-tip=""/>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </td>
+                    <td>email.from</td>
+                </tr>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
+                        <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+</div>
