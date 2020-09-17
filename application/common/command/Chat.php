@@ -2,22 +2,20 @@
 
 namespace app\common\command;
 
+use app\common\model\Kefu;
+use app\common\model\Visitor;
 use Swoole\Process;
 use think\console\Command;
 use think\console\Input;
 use think\console\input\Argument;
 use think\console\input\Option;
 use think\console\Output;
-use think\facade\Config;
-use think\facade\Env;
-use think\swoole\Http as HttpServer;
+use think\Config;
+use think\Env;
 use think\Container;
 use chat\Table;
-use think\swoole\Server as ThinkServer;
-use chat\Event;
-use think\Db;
 use chat\Service;
-use chat\TcpService;
+
 
 /**
  * Swoole 命令行，支持操作：start|stop|restart|reload
@@ -70,7 +68,7 @@ EOL;
      */
     protected function init()
     {
-        $this->config = Config::pull('timely');
+        $this->config = Config::get('kefu');
 
         if (empty($this->config['pid_file'])) {
             $this->config['pid_file'] = Env::get('runtime_path') . 'swoole_server.pid';
@@ -81,8 +79,8 @@ EOL;
             $this->config['log_file'] = Env::get('runtime_path') . 'swoole_server.log';
         }
 
-        $swoole_service_config = Config::pull('swoole_server');
-        $task_config = Config::pull('task');
+        $swoole_service_config = Config::get('chat');
+        $task_config = Config::get('task');
 
         $this->config['app_path'] = isset($swoole_service_config['app_path']) ? $swoole_service_config['app_path'] : '/data/timely_service_seller/application/';
         $this->config['daemonize'] = isset($swoole_service_config['daemonize']) ? $swoole_service_config['daemonize'] : false;
@@ -134,13 +132,6 @@ EOL;
             $this->config['daemonize'] = true;
         }
 
-        foreach ($this->config as $name => $val) {
-            if (0 === strpos($name, 'on')) {
-
-                $swoole->on(substr($name, 2), $val);
-                unset($this->config[$name]);
-            }
-        }
         $swoole->on('onWorkerStart', [new Service(), 'onWorkerStart']);
         $swoole->on('onWorkerStop', [new Service(), 'onWorkerStop']);
         $swoole->on('onWorkerExit', [new Service(), 'onWorkerExit']);
@@ -161,7 +152,6 @@ EOL;
         });
         // 设置swoole服务器参数
         $swoole->set($this->config);
-
 
         //设置swoole table
         $table = new Table();
@@ -211,17 +201,19 @@ EOL;
         Process::kill($pid, SIGTERM);
         $this->removePid();
         //处理业务数据  以保持业务完整性
-        Db::name('kefu_info')->where('kf_status', 1)->update(['online_status' => 2, 'client_id' => 0, 'update_time' => date('Y-m-d H:i:s')]);
-        Db::name('visitor')->where('online_status', 1)->update(['online_status' => 2, 'client_id' => 0, 'update_time' => date('Y-m-d H:i:s')]);
-        Db::name('visitor_service_log')->where('connect_stauts', 1)->update(['connect_stauts' => 2, 'end_time' => date('Y-m-d H:i:s')]);
-        //移除所有当前会话数据 并往历史记录插入信息
-        $list = Db::name('visitor_queue')->field('visitor_id,visitor_name,visitor_avatar,visitor_ip,address,source,mc_code,now() as create_time,kf_code')->select();
-        if ($list) {
-            Db::name('service_record')->data($list)->limit(1000)->insertAll();
-            Db::name('visitor_queue')->delete(true);
-        }
-        //清除redis 缓存信息
-        //  sleep(3);
+        Kefu::where(['online_status' => 1])->update([
+            'online_status' => 0,
+            'update_time' => date('Y-m-d H:i:s')
+        ]);
+
+        Visitor::where(['online_status' => 1])->update([
+            'online_status' => 0,
+            'client_id' => 0,
+            'kf_code' => 0,
+            'kf_client_id' => 0,
+            'update_time' => date('Y-m-d H:i:s')
+        ]);
+
         $this->output->writeln('> success');
     }
 
