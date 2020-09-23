@@ -2,24 +2,13 @@
 
 namespace app\common\model;
 
-use think\Model;
-
-class Kefu extends Model
+class Kefu extends BaseModel
 {
-    // 表名
-    protected $name = 'kefu';
-    
-    // 自动写入时间戳字段
-    protected $autoWriteTimestamp = false;
+    protected static $name = 'kefu';
 
-    // 定义时间戳字段名
-    protected $createTime = false;
-    protected $updateTime = false;
-    protected $deleteTime = false;
-
-    public static function getKefu($kf_code)
+    public static function getInfo($kf_code)
     {
-        return self::where(['kf_code' => $kf_code])->find()->toArray();
+        return self::where(['kf_code' => $kf_code])->find();
     }
 
     public static function updateOnlineStatus($kf_code, $status)
@@ -32,8 +21,8 @@ class Kefu extends Model
         $where = [
             'merchant_id' => $merchant_id,
             'status' => 1,
-            'online_status' => 1
+            'online_status' => 'online'
         ];
-        return self::where($where)->select()->toArray();
+        return self::where($where)->select();
     }
 }

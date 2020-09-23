@@ -20,8 +20,9 @@
         "topthink/think-captcha": "^1.0",
         "topthink/think-queue": "^2.0",
         "karsonzhang/fastadmin-addons": "~1.1.9",
-        "guzzlehttp/guzzle": "^6.4"
-
+        "guzzlehttp/guzzle": "^6.4",
+        "topthink/think-swoole": "2.0.*",
+        "overtrue/pinyin": "~4.0"
     },
     "config": {
         "preferred-install": "dist"

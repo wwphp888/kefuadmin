@@ -71,12 +71,12 @@ EOL;
         $this->config = Config::get('kefu');
 
         if (empty($this->config['pid_file'])) {
-            $this->config['pid_file'] = Env::get('runtime_path') . 'swoole_server.pid';
+            $this->config['pid_file'] = ROOT_PATH . 'swoole_server.pid';
         }
         // 避免pid混乱
         $this->config['pid_file'] .= '_' . $this->getPort();
         if (empty($this->config['log_file'])) {
-            $this->config['log_file'] = Env::get('runtime_path') . 'swoole_server.log';
+            $this->config['log_file'] = ROOT_PATH . 'swoole_server.log';
         }
 
         $swoole_service_config = Config::get('chat');
@@ -132,14 +132,14 @@ EOL;
             $this->config['daemonize'] = true;
         }
 
-        $swoole->on('onWorkerStart', [new Service(), 'onWorkerStart']);
-        $swoole->on('onWorkerStop', [new Service(), 'onWorkerStop']);
-        $swoole->on('onWorkerExit', [new Service(), 'onWorkerExit']);
-        $swoole->on('onOpen', [new Service(), 'onOpen']);
-        $swoole->on('onMessage', [new Service(), 'onMessage']);
-        $swoole->on('onClose', [new Service(), 'onClose']);
-        $swoole->on('onTask', [new Service(), 'onTask']);
-        $swoole->on('onFinish', [new Service(), 'onFinish']);
+        $swoole->on('workerStart', [new Service(), 'onWorkerStart']);
+        $swoole->on('workerStop', [new Service(), 'onWorkerStop']);
+        $swoole->on('workerExit', [new Service(), 'onWorkerExit']);
+        $swoole->on('open', [new Service(), 'onOpen']);
+        $swoole->on('message', [new Service(), 'onMessage']);
+        $swoole->on('close', [new Service(), 'onClose']);
+        $swoole->on('task', [new Service(), 'onTask']);
+        $swoole->on('finish', [new Service(), 'onFinish']);
         //后台推送消息用http方式
         $swoole->on('request', function($request, $response) use ($swoole) {
             try {

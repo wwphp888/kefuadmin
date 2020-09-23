@@ -5,7 +5,7 @@ namespace app\admin\controller;
 use app\common\controller\Backend;
 
 /**
- * 
+ * 访客管理
  *
  * @icon fa fa-circle-o
  */
@@ -22,7 +22,7 @@ class Visitor extends Backend
     {
         parent::_initialize();
         $this->model = new \app\admin\model\Visitor;
-
+        $this->view->assign("onlineStatusList", $this->model->getOnlineStatusList());
     }
     
     /**

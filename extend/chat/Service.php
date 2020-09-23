@@ -14,7 +14,7 @@ class Service
     public function onWorkerStart($server)
     {
         if ($server->taskworker == false) {
-            $config = Config::pull('redis');
+            $config = Config::get('redis');
             $redisPool = new RedisPool($config);
             $server->redis = CoRedis::init($redisPool);
             unset($config);
@@ -89,7 +89,7 @@ class Service
         echo "#### onTask ####" . PHP_EOL;
         echo "#{$server->worker_id} onTask: [PID(进程id)={$server->worker_pid}]: task_id={$task_id} ::::" . $data, '::::' . PHP_EOL;
         $info = json_decode($data, true);
-        $class = "\\app\\swoole\\library\\Task";
+        $class = "\\chat\\library\\Task";
         call_user_func_array([new $class, $info['method']], [$server, $info['data']]);
         $server->finish($data);
     }

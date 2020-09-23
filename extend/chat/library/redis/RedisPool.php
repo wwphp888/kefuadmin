@@ -3,7 +3,7 @@
 
  */
 
-namespace chat\redis;
+namespace chat\library\redis;
 
 use Swoole;
 

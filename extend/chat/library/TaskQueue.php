@@ -20,7 +20,7 @@ class TaskQueue
     {
         $this->service = $service;
         if (!$config) {
-            $config = Config::pull('task');
+            $config = Config::get('task');
 
             if (empty($config['task_queue'])) {
                 throw new \RuntimeException(date('Y-m-d H:i:s', time()) . "：未配置task_queue");

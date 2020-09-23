@@ -2,7 +2,7 @@
 /**
  */
 
-namespace app\swoole\library\redis;
+namespace chat\library\redis;
 
 class CoRedisMap
 {

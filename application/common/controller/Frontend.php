@@ -52,37 +52,37 @@ class Frontend extends Controller
         if ($this->layout) {
             $this->view->engine->layout('layout/' . $this->layout);
         }
-        $this->auth = Auth::instance();
-
-        // token
-        $token = $this->request->server('HTTP_TOKEN', $this->request->request('token', \think\Cookie::get('token')));
-
-        $path = str_replace('.', '/', $controllername) . '/' . $actionname;
-        // 设置当前请求的URI
-        $this->auth->setRequestUri($path);
-        // 检测是否需要验证登录
-        if (!$this->auth->match($this->noNeedLogin)) {
-            //初始化
-            $this->auth->init($token);
-            //检测是否登录
-            if (!$this->auth->isLogin()) {
-                $this->error(__('Please login first'), 'index/user/login');
-            }
-            // 判断是否需要验证权限
-            if (!$this->auth->match($this->noNeedRight)) {
-                // 判断控制器和方法判断是否有对应权限
-                if (!$this->auth->check($path)) {
-                    $this->error(__('You have no permission'));
-                }
-            }
-        } else {
-            // 如果有传递token才验证是否登录状态
-            if ($token) {
-                $this->auth->init($token);
-            }
-        }
-
-        $this->view->assign('user', $this->auth->getUser());
+//        $this->auth = Auth::instance();
+//
+//        // token
+//        $token = $this->request->server('HTTP_TOKEN', $this->request->request('token', \think\Cookie::get('token')));
+//
+//        $path = str_replace('.', '/', $controllername) . '/' . $actionname;
+//        // 设置当前请求的URI
+//        $this->auth->setRequestUri($path);
+//        // 检测是否需要验证登录
+//        if (!$this->auth->match($this->noNeedLogin)) {
+//            //初始化
+//            $this->auth->init($token);
+//            //检测是否登录
+//            if (!$this->auth->isLogin()) {
+//                $this->error(__('Please login first'), 'index/user/login');
+//            }
+//            // 判断是否需要验证权限
+//            if (!$this->auth->match($this->noNeedRight)) {
+//                // 判断控制器和方法判断是否有对应权限
+//                if (!$this->auth->check($path)) {
+//                    $this->error(__('You have no permission'));
+//                }
+//            }
+//        } else {
+//            // 如果有传递token才验证是否登录状态
+//            if ($token) {
+//                $this->auth->init($token);
+//            }
+//        }
+//
+//        $this->view->assign('user', $this->auth->getUser());
 
         // 语言检测
         $lang = strip_tags($this->request->langset());
@@ -105,6 +105,7 @@ class Frontend extends Controller
             'moduleurl'      => rtrim(url("/{$modulename}", '', false), '/'),
             'language'       => $lang
         ];
+
         $config = array_merge($config, Config::get("view_replace_str"));
 
         Config::set('upload', array_merge(Config::get('upload'), $upload));

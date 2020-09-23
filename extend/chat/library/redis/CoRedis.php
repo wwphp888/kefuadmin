@@ -1,7 +1,5 @@
 <?php
-namespace chat\redis;
-
-use chat\redis\CoRedisMap;
+namespace chat\library\redis;
 
 /**
  * Class CoRedis
@@ -141,7 +139,7 @@ class CoRedis
 {
     public static function __callStatic($method, $args)
     {
-        $class = '\\chat\\redis\\CoRedisMap';
+        $class = '\\chat\\library\\redis\\CoRedisMap';
         return call_user_func_array([new $class, $method], $args);
     }
 }

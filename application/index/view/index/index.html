@@ -1,218 +1,618 @@
-<!DOCTYPE html>
-<html>
+<style>
+    body {
+        font-size: 14px;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    * {
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
 
-    <head>
+    .timely-chat-context {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0px;
+        bottom:calc(52px + env(safe-area-inset-bottom));
+        width: 100%;
+        height: auto;
+        background-color: #EDEDED;
+        overflow: auto;
+        padding: 5px 0;
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+    }
 
-        <title>FastAdmin - {:__('The fastest framework based on ThinkPHP5 and Bootstrap')}</title>
+    .mine {
+        margin-left: 20%;
+        padding: 5px 0;
+        text-align: right;
+    }
 
-        <!-- Bootstrap Core CSS -->
-        <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <link href="__CDN__/assets/css/index.css" rel="stylesheet">
+    .mineCont {
+        display: inline-block;
+        margin-right: 15px;
+        margin-left: 15px;
+    }
 
-        <!-- Plugin CSS -->
-        <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="https://cdn.staticfile.org/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    .mineText {
+        position: relative;
+        display: inline-block;
+        padding: 8px;
+        color: #000;
+        background-color: #F5F5F5;
+        min-width: 50px;
+        min-height: 20px;
+        line-height: 20px;
+        border-radius: 2px;
+        word-break: break-all;
+        text-align: left;
+        margin-top: 3px;
+    }
+    .mineTop{
+        margin-bottom: 5px;
+        margin-left: 10px;
+    }
+    .mineTop span {
+        color: #BBB;
+        font-weight: 300;
+    }
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://cdn.staticfile.org/html5shiv/3.7.3/html5shiv.min.js"></script>
-            <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
+    .is-read {
+        margin-right: 5px;
+        color: #FF5722;
+        font-size: 12px;
+    }
 
-    <body id="page-top">
+    .is-read.active {
+        color: #DDD;
+    }
 
-        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-menu">
-                        <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand page-scroll" href="#page-top"><img src="__CDN__/assets/img/logo.png" style="width:200px;" alt=""></a>
-                </div>
+    .is-left .mineTips {
+        position: absolute;
+        top: 13px;
+        width: 9px;
+        height: 9px;
+        left: -6px;
+        background: #fff;
+        border-bottom: 1px solid #dedede;
+        border-right: 1px solid #dedede;
+        transform: rotate(135deg);
+    }
 
-                <div class="collapse navbar-collapse" id="navbar-collapse-menu">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="https://www.fastadmin.net" target="_blank">{:__('Home')}</a></li>
-                        <li><a href="https://www.fastadmin.net/store.html" target="_blank">{:__('Store')}</a></li>
-                        <li><a href="https://www.fastadmin.net/wxapp.html" target="_blank">{:__('Wxapp')}</a></li>
-                        <li><a href="https://www.fastadmin.net/service.html" target="_blank">{:__('Services')}</a></li>
-                        <li><a href="https://www.fastadmin.net/download.html" target="_blank">{:__('Download')}</a></li>
-                        <li><a href="https://www.fastadmin.net/demo.html" target="_blank">{:__('Demo')}</a></li>
-                        <li><a href="https://www.fastadmin.net/donate.html" target="_blank">{:__('Donation')}</a></li>
-                        <li><a href="https://forum.fastadmin.net" target="_blank">{:__('Forum')}</a></li>
-                        <li><a href="https://doc.fastadmin.net" target="_blank">{:__('Docs')}</a></li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container-fluid -->
-        </nav>
+    .is-right .mineTips {
+        position: absolute;
+        top: 13px;
+        width: 9px;
+        height: 9px;
+        right: -5px;
+        background: #95EC69;
+        border-bottom: 1px solid #95EC69;
+        border-right: 1px solid #95EC69;
+        transform: rotate(45deg);
+    }
 
-        <header>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="header-content">
-                            <div class="header-content-inner">
-                                <h1>FastAdmin</h1>
-                                <h3>{:__('The fastest framework based on ThinkPHP5 and Bootstrap')}</h3>
-                                <a href="{:url('index/user/index')}" class="btn btn-outline btn-xl page-scroll">{:__('Go to Member center')}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+    .timely-chat-footer {
+        position: absolute;
+        left: 0;
+        bottom: 0px;
+        width: 100%;
+        border-top: 1px solid #EEE;
+        height: 120px;
+        background-color: #FFF;
+    }
 
-        <section id="features" class="features">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <div class="section-heading">
-                            <h2>{:__('Features')}</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="feature-item">
-                                        <i class="icon-user text-primary"></i>
-                                        <h3>{:__('Auth')}</h3>
-                                        <p class="text-muted">{:__('Auth tips')}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="feature-item">
-                                        <i class="icon-screen-smartphone text-primary"></i>
-                                        <h3>{:__('Responsive')}</h3>
-                                        <p class="text-muted">{:__('Responsive tips')}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="feature-item">
-                                        <i class="icon-present text-primary"></i>
-                                        <h3>{:__('Languages')}</h3>
-                                        <p class="text-muted">{:__('Languages tips')}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="feature-item">
-                                        <i class="icon-layers text-primary"></i>
-                                        <h3>{:__('Module')}</h3>
-                                        <p class="text-muted">{:__('Module tips')}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="feature-item">
-                                        <i class="icon-docs text-primary"></i>
-                                        <h3>{:__('CRUD')}</h3>
-                                        <p class="text-muted">{:__('CRUD tips')}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="feature-item">
-                                        <i class="icon-puzzle text-primary"></i>
-                                        <h3>{:__('Extension')}</h3>
-                                        <p class="text-muted">{:__('Extension tips')}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    .timely-chat-footer ul li {
+        display: inline-block;
+        padding-left: 5px;
+    }
 
-        <section class="cta">
-            <div class="cta-content">
-                <div class="container">
-                    <h2>{:__('Do not hesitate')}<br>{:__('Start to act')}</h2>
-                    <a href="https://doc.fastadmin.net/docs/contributing.html" class="btn btn-outline btn-xl page-scroll">{:__('Contribution')}</a>
-                </div>
-            </div>
-            <div class="overlay"></div>
-        </section>
+    .timely-chat-footer ul li i {
+        font-size: 24px;
+    }
+    .timely-chat-footer .chat-tool {
+        color: #bdd0d1;
+    }
 
-        <footer>
-            <div class="container">
-                <!-- FastAdmin是开源程序，建议在您的网站底部保留一个FastAdmin的链接 -->
-                <p>&copy; 2017-2019 <a href="https://www.fastadmin.net" target="_blank">FastAdmin</a>. All Rights Reserved.</p>
-                <ul class="list-inline">
-                    <li>
-                        <a href="https://gitee.com/karson/fastadmin">{:__('Gitee')}</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/karsonzhang/fastadmin">{:__('Github')}</a>
-                    </li>
-                    <li>
-                        <a href="https://shang.qq.com/wpa/qunwpa?idkey=46c326e570d0f97cfae1f8257ae82322192ec8841c79b2136446df0b3b62028c">{:__('QQ group')}</a>
-                    </li>
+    .chat-text {
+        padding: 0 10px;
+        margin-top: 5px;
+        width: calc(100% - 100px);
+        height: 80px;
+        line-height: 20px;
+        outline: 0;
+    }
+
+    .listmore {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .listmore a {
+        color: #54B0E5;
+        cursor: pointer;
+    }
+
+    .chat-content .layui-timely-photos {
+        max-width: 100px;
+        max-height: 100px;
+
+    }
+    .chat-content a{
+        color:#4277E3;
+    }
+
+    .timely-chat-area-shadeFull {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background-color: #FFF;
+        text-align: center;
+        line-height: 120px;
+    }
+
+    .timely-chat-area-shadeFull a {
+        color: #56b7c7;
+        cursor: pointer;
+    }
+
+    .timely-chat-system-message {
+        padding: 5px 0;
+        text-align: center;
+    }
+
+    .timely-chat-system-message p {
+        display: inline-block;
+        padding: 0 10px;
+        height: 26px;
+        line-height: 26px;
+        font-size: 12px;
+        background-color: #EEE;
+        color: #AAA;
+    }
+
+    .chat-iframe-write {
+        position: relative;
+        padding: 15px 20px 0;
+        text-align: center;
+    }
+
+    .chat-iframe-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    .chat-iframe-write h4 {
+        line-height: 50px;
+        font-size: 16px;
+    }
+
+    .chat-iframe-writeCont {
+        height: 320px;
+        padding-right: 10px;
+        margin-bottom: 30px;
+        overflow-y: scroll;
+    }
+
+    .chat-iframe-write p {
+        margin-bottom: 10px;
+        color: #999;
+        line-height: 22px;
+        font-size: 12px;
+        text-align: left;
+        text-indent: 1em;
+    }
+
+    .layui-form-item {
+        margin-bottom: 15px;
+        clear: both;
+        *zoom: 1;
+    }
+
+    .chat-iframe-write .layui-form-label {
+        padding: 5px 15px 5px 0;
+        width: 80px;
+    }
+
+    .chat-iframe-write .layui-form-label span {
+        color: red;
+    }
+
+    .chat-iframe-write [lay-submit] {
+        height: 30px;
+        padding: 0 25px;
+        margin-top: 20px;
+        background-color: #1e9fff;
+        line-height: 30px;
+        margin-bottom: 10px;
+    }
+
+    .message-footer {
+        font-size: 12px;
+        color: hsla(0, 0%, 80%, .8);
+        text-align: center;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .chat-text-right i {
+        font-size: 30px;
+    }
+
+    .chat-item {
+        width: 100%;
+        padding-bottom: 15px;
+    }
+
+    .chat-item.is-left .msg {
+        text-align: left;
+    }
+
+    .chat-item .msg {
+        position: relative;
+    }
+    .avatarBox{
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .chat-item .avatar {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        border-radius: 2px;
+        z-index: 999;
+    }
+
+    .chat-item.is-left .avatar {
+        left: 5px;
+    }
+    .chat-item.is-right .avatar {
+        right: 5px;
+    }
+
+    img {
+        border-style: none;
+        vertical-align: middle;
+        max-width: 100%;
+
+    }
+    .avatar img {
+        border-radius: 50%;
+    }
+
+    .chat-item .content-box {
+        position: relative;
+        /*display: inline-block;*/
+        vertical-align: top;
+    }
+
+    .chat-item.is-left .content-box {
+        padding-right: 20.5px;
+    }
+
+    .chat-item.is-left .avatar ~ .content-box {
+        padding-left: 45px;
+    }
+    .chat-item.is-right .avatar ~ .content-box {
+        padding-right: 45px;
+    }
+
+    .chat-item.is-right .msg {
+        text-align: right;
+    }
+
+    .chat-item.is-right .content-box {
+        padding-left: 20.5px;
+    }
+
+    .chat-item.is-right .bubble {
+        background: #95EC69;
+        margin-right: 12px;
+        color: #121e2c;
+    }
+    .chat-item.is-right .mineTop {
+        text-align: right;
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
+    .chat-item .bubble {
+        position: relative;
+        display: inline-block;
+        background: #fff;
+        word-wrap: break-word;
+        word-break: break-all;
+        border: solid 1px #e3e5e4;
+        border-radius: 5px;
+        text-align: left;
+        max-width: 80%;
+    }
+    .chat-item .bubble.fixed_width {
+        width: 78%;
+    }
+
+    .chat-item.is-left .bubble {
+        margin-left: 10px;
+    }
+
+    .chat-item .bubble .chat-content {
+        padding: 8px;
+        text-align: justify;
+
+    }
+    .chat-item .bubble pre {
+        padding: 10.5px 0px;
+
+
+    }
+    .chat-item .is-right .bubble:before {
+        left: 100%;
+        border-left-color: #4979ff;
+        border-left-width: 8px;
+    }
+    .chat-item .bubble:before {
+        position: absolute;
+        top: 8px;
+        border: 6px solid transparent;
+        content: " ";
+    }
+
+    .chat-issues {
+        border-top: 1px solid #e6e6e6;
+        padding: 5px 0;
+    }
+
+    .chat-issues .item {
+        padding: 2px 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        color: #4277E3;
+        cursor: pointer;
+    }
+
+    .chat-item .tips {
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+        padding: 10px 0 15px;
+    }
+
+    .chat-issues .more-help {
+        margin-top: 5px;
+        padding-bottom: 5px;
+        border-top: 1px solid #e6e6e6;
+        padding-top: 10px;
+    }
+    .on {
+        display: none;
+    }
+
+    .timely-header p {
+        height: 100%;
+        line-height: 48px;
+        padding: 0 115px 0 17px;
+        font-weight: 300;
+        color: #FFF;
+        overflow: hidden;
+    }
+
+    .widget-layer-view{
+        position: absolute;
+        left: 2%;
+        bottom: calc(50px + env(safe-area-inset-bottom));
+        width: 96%;
+        background: #fff;
+        border: 1px solid #dbdbdb;
+        border-radius: 2px;
+        z-index: 999;
+    }
+    .widget-layer-view ul {
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .widget-layer-view li{
+        position: relative;
+        z-index: 8;
+        float: left;
+        width: 25px;
+        height: 25px;
+        padding: 5px;
+        margin-left: -1px;
+        margin-top: -1px;
+        cursor: pointer;
+    }
+    .widget-layer-view li:hover{
+        z-index: 9;
+        border-color: #eb7350;
+    }
+    .widget-layer-view .widget-panel {
+        min-height: 10px;
+        padding: 5px;
+        color: #bdd0d1;
+    }
+
+    .tool-active {
+        color: #1e9fff;
+    }
+
+    .change-items {
+        color: #4277E3;
+        text-align: center
+    }
+    .change-items img{
+        width: 16px;
+        height: 16px;
+        margin-right: 2px;
+        margin-top: -2px;
+    }
+
+    .timely-chat-footer {
+        position: fixed;
+        height: 52px;
+        background-color: rgb(247, 247, 247);
+        border-bottom: rgb(244, 244, 244);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 10px 0 0;
+    }
+    @supports (bottom: env(safe-area-inset-bottom)) {
+        .timely-chat-footer.mobile{
+            box-sizing: content-box;
+            padding-bottom: constant(safe-area-inset-bottom);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+    .timely-chat-footer .chat-tool-face {
+        width: 30px;
+    }
+    .timely-chat-footer .chat-tool-add {
+        width: 30px;
+    }
+    .timely-chat-footer .inputWapper {
+        width: calc(100% - 170px);
+        height: 38px;
+        border-radius: 4px;
+    }
+    .timely-chat-footer input{
+        width: 100%;
+        height: 100%;
+        border: none;
+        font-size: 14px;
+        -ms-flex: 1;
+        text-indent: 8px;
+        border-radius: 4px;
+        outline: none;
+    }
+    .timely-chat-footer .chat-send {
+        color: #FFFFFF;
+        background-color: #18bc9c;
+        width: 54px;
+        height: 34px;
+        line-height: 34px;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 3px;
+    }
+    .widget-layer{
+        overflow: hidden;
+        left: 0 !important;
+        width: 99.5% !important;
+    }
+
+    .widget-word-nav {
+        width: 100%;
+        position: fixed;
+        height: 50px;
+        left: 0;
+        bottom: calc(52px + env(safe-area-inset-bottom));
+        background-color: #edf1f2;
+        border: none;
+    }
+    .widget-word-nav ul{
+        display: flex;
+        height: 50px;
+        overflow: scroll;
+        padding: 0 10px;
+        align-items: center;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: scroll;
+        -webkit-backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        -webkit-overflow-scrolling: touch;
+    }
+    .widget-word-nav ul li{
+        background: #fff;
+        color: #0a80ff;
+        height: 36px;
+        line-height: 36px;
+        padding: 0 12px;
+        border-radius: 20px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .chat-box-footer {
+        padding-top: 8px;
+        border-top: 1px solid #e6e6e6;
+        text-align: center;
+        color: #4277E3;
+    }
+    .chat-box-footer  button {
+        padding: 5px 15px;
+        border-radius: 20px;
+        border: 1px solid #4277E3;
+        outline: none;
+        background: none;
+        margin: 0 auto;
+        color: #4277E3;
+    }
+    .chat-box-footer  button.change-items {
+        height: 20px;
+        line-height: 20px;
+        padding: 0;
+        border: none;
+        outline: none;
+        background: none;
+        margin: 0 auto;
+        color: #4277E3;
+    }
+    .chat-iframe-write .layui-form-label {
+        padding: 0;
+        width: 60px;
+    }
+    .chat-content img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+
+</style>
+<div class="timely-chat-cont mobile">
+    <!-- 兼容苹果-->
+    <div style="width: 100%;height: 20px;background: #4277E3;display: none; position: fixed; top:0px;" id="navL"></div>
+
+    <!-- 对话内容-->
+    <div class="timely-chat-context mobile">
+        <div style="display: none" data-num="0" id="num"></div>
+    </div>
+    <!--底部工具-->
+    <div class="timely-chat-footer mobile">
+        <img class="chat-tool-face" src="/assets/img/smile-face.png">
+        <img class="chat-tool-add" src="/assets/img/circle-add.png">
+        <div class="inputWapper"><input class="message mobile"></div>
+        <div class="chat-send">发送</div>
+
+
+        <!--隐藏工具栏-->
+        <div class="widget-layer-view" style="display: none">
+            <div class="widget-panel">
+                <ul>
+                    <li><i id="chat-upload-img" class="fa fa-file-image-o plupload"></i></li>
                 </ul>
             </div>
-        </footer>
+        </div>
+    </div>
+</div>
 
-        <!-- jQuery -->
-        <script src=https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        <!-- Plugin JavaScript -->
-        <script src="https://cdn.staticfile.org/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-
-        <script>
-            $(function () {
-                $(window).on("scroll", function () {
-                    $("#mainNav").toggleClass("affix", $(window).height() - $(window).scrollTop() <= 50);
-                });
-
-                // 发送版本统计信息，请移除
-                try {
-                    var installed = localStorage.getItem("installed");
-                    if (!installed) {
-                        $.ajax({
-                            url: "{$Think.config.fastadmin.api_url}/statistics/installed",
-                            data: {
-                                version: "{:config('fastadmin.version')}",
-                                os: "{$Think.PHP_OS}",
-                                sapi: "{$Think.PHP_SAPI}",
-                                tpversion: "{$Think.THINK_VERSION}",
-                                phpversion: "{$Think.PHP_VERSION}",
-                                software: "{$Request.server.SERVER_SOFTWARE}",
-                                url: location.href,
-                            },
-                            dataType: 'jsonp',
-                        });
-                        localStorage.setItem("installed", true);
-                    }
-                } catch (e) {
-
-                }
-
-            });
-        </script>
-
-        <script>
-            // FastAdmin统计代码，请移除
-            var _hmt = _hmt || [];
-            (function () {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?f8d0a8c400404989e195270b0bbf060a";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();
-        </script>
-
-    </body>
-
-</html>
+<script>
+    var merchant_id = '{$merchant_id}';
+    var visitor_id = '{$visitor_id}';
+    var name = '{$name}';
+    var avatar = '{$avatar}';
+    var port = '{$port}';
+</script>

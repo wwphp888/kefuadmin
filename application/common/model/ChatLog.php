@@ -2,18 +2,13 @@
 
 namespace app\common\model;
 
-use think\Model;
 
-class ChatLog extends Model
+class ChatLog extends BaseModel
 {
-    // 表名
-    protected $name = 'chat_log';
-    
-    // 自动写入时间戳字段
-    protected $autoWriteTimestamp = false;
+    protected static $name = 'chat_log';
 
-    // 定义时间戳字段名
-    protected $createTime = false;
-    protected $updateTime = false;
-    protected $deleteTime = false;
+    public static function updateSendStatus($id, $status = 0)
+    {
+        return self::where(['id' => $id])->update(['status' => $status]);
+    }
 }

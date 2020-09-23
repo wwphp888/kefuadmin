@@ -2,24 +2,14 @@
 
 namespace app\common\model;
 
-use think\Model;
-
-class Visitor extends Model
+class Visitor extends BaseModel
 {
-    // 表名
-    protected $name = 'visitor';
-    
-    // 自动写入时间戳字段
-    protected $autoWriteTimestamp = false;
-
-    // 定义时间戳字段名
-    protected $createTime = false;
-    protected $updateTime = false;
-    protected $deleteTime = false;
+    protected static $name = 'visitor';
+    protected static $pk = 'id';
 
     public static function getInfo($id)
     {
-        return self::where(['id' => $id])->find()->toArray();
+        return self::where(['visitor_id' => $id])->find();
     }
 
     public static function updateClientId($id, $clientId)
@@ -34,7 +24,7 @@ class Visitor extends Model
 
     public static function getQueueing($kf_code)
     {
-        return self::where(['kf_code' => $kf_code])->select()->where();
+        return self::where(['kf_code' => $kf_code])->select();
     }
 
     public static function getKfServiceNum($kf_codes)
